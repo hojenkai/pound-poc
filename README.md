@@ -1,4 +1,4 @@
-# Pound Proof-Of-Concept
+# Pound POC
 
 This proof of concept validates that the linux proxy `Pound` is able to route http requests to different back ends depending on the requested resource. The application starts up 2 node services and one proxy whose configuration can be found in the `pound.cfg` file.
 
