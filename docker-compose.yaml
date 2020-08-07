@@ -1,0 +1,44 @@
+version: '3'
+services:
+  webapp1:
+    build:
+      context: ./node-service
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8080
+      - IP_ADDRESS=10.5.0.5
+    ports: 
+      - 8080:8080
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.5
+
+  webapp2:
+    build:
+      context: ./node-service
+      dockerfile: Dockerfile
+    environment:
+      - PORT=9090
+      - IP_ADDRESS=10.5.0.6
+    ports: 
+      - 9090:9090
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.6
+
+  pound:
+    image: eeacms/pound
+    ports:
+      - 80:80
+    volumes:
+      - ./pound.cfg:/etc/pound/config.cfg
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.7
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
